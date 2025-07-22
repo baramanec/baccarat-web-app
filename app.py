@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        history = request.form.get('history')  # 例如 "B,P,B,T,P"
+        history = request.form.get('history', "")
         result = calculate_win_rate(history)
         return render_template('index.html', result=result, history=history)
     return render_template('index.html', result=None, history="")

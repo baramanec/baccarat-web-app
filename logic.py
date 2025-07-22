@@ -82,7 +82,7 @@ def calculate_win_rate(history_str):
             else:
                 tie += 1
 
-    total = banker_win + player_win + tie
+    total = banker_win + player_win + tie or 1
     return {
         "banker": round(banker_win / total * 100, 2),
         "player": round(player_win / total * 100, 2),
