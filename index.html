@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>百家樂勝率預測系統</title>
+</head>
+<body>
+    <h1>百家樂勝率預測</h1>
+    <form method="POST">
+        <label for="history">請輸入過往牌局（以逗號分隔，如：B,P,P,T）:</label><br>
+        <input type="text" name="history" value="{{ history }}" style="width: 300px;">
+        <button type="submit">計算勝率</button>
+    </form>
+
+    {% if result %}
+        <h2>預測結果：</h2>
+        <p>莊勝率：{{ result.banker }}%</p>
+        <p>閒勝率：{{ result.player }}%</p>
+        <p>和勝率：{{ result.tie }}%</p>
+        <p><strong>建議下注：{{ result.suggestion }}</strong></p>
+    {% endif %}
+</body>
+</html>
