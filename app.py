@@ -1,17 +1,19 @@
 from flask import Flask, render_template, request
-from logic import calculate_win_rate
-import os
+from logic import predict_next_bet
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        history = request.form.get('history', "")
-        result = calculate_win_rate(history)
-        return render_template('index.html', result=result, history=history)
-    return render_template('index.html', result=None, history="")
+    result = None
+    confidence = None
+    trend = ""
 
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=False, host="0.0.0.0", port=port)
+    if request.method == 'POST':
+        trend = request.form['trend']
+        result, confidence = predict_next_bet(trend)
+
+    return render_template('index.html', result=result, confidence=confidence, trend=trend)
+
+if __name__ == "__main__":
+    app.run(debug=True)

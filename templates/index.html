@@ -2,22 +2,44 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>百家樂勝率預測系統</title>
+    <title>百家樂預測系統</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 30px; background: #f8f9fa; }
+        h1 { color: #343a40; }
+        form { margin: 20px auto; }
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+        }
+        input[type="submit"] {
+            padding: 8px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #ffffff;
+            border: 1px solid #ced4da;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    <h1>百家樂勝率預測</h1>
-    <form method="POST">
-        <label for="history">請輸入過往牌局（以逗號分隔，如：B,P,P,T）:</label><br>
-        <input type="text" name="history" value="{{ history }}" style="width: 300px;">
-        <button type="submit">計算勝率</button>
+    <h1>百家樂下注建議</h1>
+    <form method="post">
+        <label for="trend">請輸入目前走勢（例如 BBPPBPBT...）:</label><br>
+        <input type="text" id="trend" name="trend" required><br><br>
+        <input type="submit" value="分析走勢">
     </form>
-
     {% if result %}
-        <h2>預測結果：</h2>
-        <p>莊勝率：{{ result.banker }}%</p>
-        <p>閒勝率：{{ result.player }}%</p>
-        <p>和勝率：{{ result.tie }}%</p>
-        <p><strong>建議下注：{{ result.suggestion }}</strong></p>
+    <div class="result-box">
+        <h3>建議下注：{{ result }}</h3>
+        <p>信心程度：{{ '{:.2f'.format(confidence * 100) }}%</p>
+        <p>目前走勢：{{ trend }}</p>
+    </div>
     {% endif %}
 </body>
 </html>
